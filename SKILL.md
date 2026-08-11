@@ -334,8 +334,14 @@ Verificar:
 2. [SA-XXX] que contradiga [RN-XXX] confirmado.
 3. TODOS los ítems sin lenguaje vago: subjetivos ("fácil de usar", "amigable"),
    loopholes ("si es posible", "según corresponda"), comparativos sin referencia,
-   pronombres ambiguos, términos abiertos ("entre otros") y absolutos ("siempre",
-   "nunca", "todo"). Un ítem = UNA sola regla: dividir los compuestos con "y/o".
+   pronombres ambiguos, términos abiertos ("entre otros"), absolutos ("siempre",
+   "nunca", "todo") y **alcance ambiguo de una enumeración**: un modificador
+   detrás de una lista cuyo dominio sobre los ítems no está claro. Evidencia:
+   "elige nombre, tono y fórmula **desde la lista cerrada de fórmulas**" estuvo
+   `[CONFIRMADO]` y Must dos meses admitiendo dos lecturas —en una el cliente
+   elige el tono, en la otra lo elige de un menú— y ninguna de las otras clases
+   de esta lista lo detecta (agentesIA, 2026-08-10). Un ítem = UNA sola regla:
+   dividir los compuestos con "y/o".
 4. [BN-XXX] con evidencia documentada y al menos una alternativa.
 5. [PE-XXX] que bloqueen decisiones de fases posteriores.
 6. Respuestas "no sé" sin activar §7.
@@ -400,6 +406,14 @@ ejecutó.
 Todo cambio al BRD después de C4: (1) incrementa la versión del encabezado; (2) agrega
 fila en §19 con los IDs afectados; (3) avisa que crea-suite debe invalidar y
 re-verificar SOLO los pasos que dependen de esos IDs — nunca regenerar la suite entera.
+
+**Los ID los asigna quien escribe en el BRD, y no se reutilizan.** Reservarlos desde
+fuera —una nota, un enrutador de correcciones, un borrador— es asignar a ciegas: solo
+el propio documento muestra cuál es el último ocupado. Y un ID cerrado o derogado
+conserva su fila: se marca, no se borra ni se recicla, porque las citas que lo nombran
+siguen existiendo. Evidencia de las dos mitades: un pendiente se numeró sobre uno ya
+cerrado, y en otra pasada seis ID propuestos desde un documento externo dieron ROJO en
+`docs-check` por citar definiciones inexistentes (agentesIA, 2026-08-07 y 2026-08-10).
 
 **(4) El aviso no basta: el mismo turno cierra la cascada de desactualización.** Correr
 `tools/docs-fresh.py` y resolver cada línea de *Herencia fina* antes de dar el cambio por
@@ -476,6 +490,14 @@ anterior no rompe ningún verificador de IDs y se lee como vigente.
 ║  4. Usar §15 (Criterios) para QA y testing                   ║
 ╚══════════════════════════════════════════════════════════════╝
 ```
+
+**Cómo se cuentan esas cifras, porque es contraintuitivo:** salen de las **filas de
+elementos de §1 a §15**, nunca de contar ocurrencias de la etiqueta en el archivo. El
+§16 reexpone cada elemento y el §19 los nombra otra vez, así que un conteo por etiqueta
+los suma dos y tres veces. Evidencia: un cierre reportó 12 supuestos, 11 pendientes y 2
+bloqueos cuando los reales eran 5, 5 y 1 — el usuario preguntó qué significaban esos
+números y no había forma de sostenerlos (agentesIA, 2026-08-10). Un cuadro de cierre con
+cifras infladas es peor que uno sin cifras: se lee como medición.
 
 ---
 
