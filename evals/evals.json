@@ -1,0 +1,63 @@
+{
+  "skill_name": "brd-business-analyst",
+  "notas": "Correr cada caso CON y SIN la skill: el delta es lo que la skill debe demostrar. Sin skill, Claude tiende a (a) aceptar decisiones tecnicas que el usuario ofrece, (b) marcar como acordado lo que el mismo infirio, (c) leer un documento y declararlo sano sin medirlo, y (d) cambiar una regla sin barrer los criterios que la verifican. Los cuatro casos apuntan a esas cuatro. Origen de los casos 3 y 4: agentesIA, 2026-08-10 -- el caso 4 reproduce un CA que sobrevivio cuatro versiones verificando el mundo anterior a la regla que lo motivaba, y que ningun control automatico detecto.",
+  "evals": [
+    {
+      "id": 1,
+      "eval_name": "puerta-de-entrada-y-estados",
+      "prompt": "Quiero un BRD para un sistema de reservas de canchas de padel. Ya decidi el stack: React con Postgres y lo despliego en Vercel. Somos tres canchas, se arrienda por hora, la gente reserva por Instagram y por telefono y se nos cruzan las horas todo el tiempo. El pago va por transferencia. Armame el documento.",
+      "expected_output": "Clasifica CONSTRUCCION. Etapa A: detecta arquetipos (Recursos escasos, y posiblemente Proceso), muestra el mapa de vacios y pide confirmacion antes de avanzar. NO registra React, Postgres ni Vercel en ninguna parte del BRD: son decisiones tecnicas y la seccion 3 principio 1 las deja fuera. Lo que el usuario dijo se marca CONFIRMADO; lo que la skill infiere se marca SUPUESTO. Maximo 3 preguntas.",
+      "files": [],
+      "assertions": [
+        { "tipo": "puerta-de-entrada", "text": "React, Postgres y Vercel NO aparecen como requisitos en el documento ni como restricciones; a lo sumo se mencionan para decir que quedan fuera del alcance de este analisis" },
+        { "tipo": "estados", "text": "Todo item lleva ID y estado, y lo inferido por la skill esta marcado [SUPUESTO], no [CONFIRMADO]" },
+        { "tipo": "etapa", "text": "No entrega el BRD completo en el primer turno: cierra Etapa A pidiendo confirmacion explicita antes de avanzar" },
+        { "tipo": "preguntas", "text": "Hace 3 preguntas o menos en el turno" },
+        { "tipo": "terminos-del-usuario", "text": "Usa las palabras del usuario (cancha, arriendo por hora) y no sinonimos propios como recurso o slot" }
+      ]
+    },
+    {
+      "id": 2,
+      "eval_name": "no-se-investigo-versus-oriento",
+      "prompt": "Sigamos con el BRD de las canchas. Me preguntas si necesito boleta electronica para el arriendo y si el sistema debe guardar los datos de los jugadores: no tengo idea, nunca lo pense. Y me preguntas si prefiero que la reserva se confirme sola o que yo la apruebe: tampoco se, tu dime.",
+      "expected_output": "Activa el protocolo NO-SE de la seccion 7.2 y lo bifurca correctamente: lo tributario y lo de datos personales son hechos verificables, asi que ofrece investigar y devuelve hallazgos como [INVESTIGADO] a validar; la confirmacion automatica versus manual es preferencia del negocio, asi que orienta con 2-3 opciones marcadas [SUPUESTO]. En ningun caso registra [DUDA] y se detiene, ni inventa una cifra o una norma.",
+      "files": [],
+      "assertions": [
+        { "tipo": "no-se-investigable", "text": "Para lo tributario y los datos personales ofrece investigar en fuentes publicas y no responde de memoria ni inventa una norma o un numero de ley" },
+        { "tipo": "no-se-preferencia", "text": "Para confirmacion automatica versus manual NO investiga: entrega 2-3 opciones orientativas marcadas [SUPUESTO] y pide que el usuario elija" },
+        { "tipo": "no-colgar", "text": "Ningun punto queda registrado como [DUDA] sin ofrecer investigacion u orientacion" },
+        { "tipo": "estados", "text": "Nada de lo que la skill propone queda marcado [CONFIRMADO] sin que el usuario lo valide" }
+      ]
+    },
+    {
+      "id": 3,
+      "eval_name": "aprobado-no-es-sano-se-mide",
+      "prompt": "Aca esta el BRD de mi panaderia. Esta aprobado y le pasamos tres revisiones de lectura. Antes de mandarlo a construir, revisalo.",
+      "expected_output": "NO lo declara sano por estar aprobado. Mide en vez de leer: detecta que el flujo principal completo (PR-001 a PR-004, los cuatro Must) no tiene un solo criterio de aceptacion mientras los casos borde CB-001 y CB-002 si lo tienen -- la inversion exacta que describe el anti-patron 21. Los Must sin criterio son siete y esa es la lista completa que debe presentar: PR-001 a PR-004, RN-002, RN-003 y RN-004. RN-005 no entra ahi porque es Should, pero si es inerte: ningun CA lo verifica y ningun elemento lo cita. RN-004 esta hinchado (422 caracteres, varias reglas en una). Medido con salud-brd.py sobre este mismo fixture: cobertura global 28%, PR 0%, CB 100%, inertes 71%. Si existe tools/salud-brd.py lo corre; si no, dice en voz alta que la revision fue solo por lectura.",
+      "files": ["fixtures/brd-panaderia-aprobado.md"],
+      "assertions": [
+        { "tipo": "camino-feliz", "text": "Detecta que PR-001 a PR-004 (flujo principal, prioridad M) no tienen ningun CA, y lo nombra como el hallazgo mas caro" },
+        { "tipo": "inversion-de-cobertura", "text": "Nombra explicitamente que los casos borde SI estan cubiertos mientras el flujo central no lo esta" },
+        { "tipo": "lista-completa", "text": "Entrega la lista completa de elementos Must sin criterio, no los dos o tres primeros que aparecen" },
+        { "tipo": "inertes", "text": "Detecta al menos un elemento inerte (RN-005: ningun CA lo verifica y ningun otro elemento lo cita)" },
+        { "tipo": "hinchazon", "text": "Detecta que RN-004 contiene varias reglas en una y propone partirlo conservando el ID original con el nucleo" },
+        { "tipo": "medicion-declarada", "text": "O corre la verificacion mecanica, o declara en voz alta que la revision fue solo por lectura. No presenta una lectura como si fuera una medicion" },
+        { "tipo": "aprobado-no-es-sano", "text": "No usa 'esta aprobado' ni 'paso tres revisiones' como evidencia de que esta sano" }
+      ]
+    },
+    {
+      "id": 4,
+      "eval_name": "cambio-post-aprobacion-barre-sus-criterios",
+      "prompt": "Este es el BRD de la clinica. El dueño ya decidio y lo aplicamos: el recordatorio se manda una sola vez y no se repite. Revisa que el documento haya quedado consistente.",
+      "expected_output": "Detecta que CA-003 sigue exigiendo un segundo recordatorio a las 3 horas, o sea verifica el mundo anterior a RN-002, y que ambos criterios no pueden cumplirse a la vez. Aplica el corolario de la seccion 11: cuando una regla cambia, se barren los criterios y notas que la citan. Propone derogar o reescribir CA-003 sin reutilizar el ID. Verifica ademas que el cambio de la version 4.3 haya dejado fila en la seccion 19 (la dejo) y que la seccion 16 no contradiga. Dato que hace valioso este caso: medido con salud-brd.py, la cobertura de RN en este fixture da 100% -- CA-003 SI cita a RN-002, asi que el medidor lo ve cubierto. La metrica esta en verde y el documento esta roto. Cobertura no es correccion, y ningun control automatico existente detecta esto.",
+      "files": ["fixtures/brd-clinica-cambio.md"],
+      "assertions": [
+        { "tipo": "corolario-cascada", "text": "Detecta que CA-003 verifica el comportamiento derogado por RN-002 y que los dos criterios son insatisfacibles a la vez" },
+        { "tipo": "no-reutilizar-id", "text": "Propone derogar o reescribir CA-003 conservando el ID, y NO reasignar ese numero a un criterio distinto" },
+        { "tipo": "alcance-del-barrido", "text": "El barrido se dimensiona por ID afectado (los que citan RN-002), no revisando el documento entero ni solo el elemento cambiado" },
+        { "tipo": "sin-falso-positivo", "text": "No reporta como incoherentes CA-001, CA-002 ni CA-004, que no dependen de RN-002" },
+        { "tipo": "historial", "text": "Confirma que el cambio quedo registrado en la seccion 19 con sus IDs afectados y su motivo" }
+      ]
+    }
+  ]
+}
