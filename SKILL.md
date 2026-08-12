@@ -294,7 +294,8 @@ ID → Sección → Estado
 (esta matriz dice DÓNDE vive cada ítem y en qué estado — NO dice si está verificado.
 La cobertura elemento→[CA] no se lee aquí: se MIDE con el estudio del §11 punto 9.
 Una matriz de pertenencia llamada "trazabilidad" produce sensación de cobertura sin
-cobertura: así convivieron 4 filtros en verde con 81 Must sin [CA])
+cobertura: así han convivido varios filtros en verde con decenas de elementos
+Must sin [CA])
 
 ## 17. Handoff
 ### Arquitectura de Software
@@ -336,11 +337,12 @@ Verificar:
    loopholes ("si es posible", "según corresponda"), comparativos sin referencia,
    pronombres ambiguos, términos abiertos ("entre otros"), absolutos ("siempre",
    "nunca", "todo") y **alcance ambiguo de una enumeración**: un modificador
-   detrás de una lista cuyo dominio sobre los ítems no está claro. Evidencia:
-   "elige nombre, tono y fórmula **desde la lista cerrada de fórmulas**" estuvo
-   `[CONFIRMADO]` y Must dos meses admitiendo dos lecturas —en una el cliente
-   elige el tono, en la otra lo elige de un menú— y ninguna de las otras clases
-   de esta lista lo detecta (agentesIA, 2026-08-10). Un ítem = UNA sola regla:
+   detrás de una lista cuyo dominio sobre los ítems no está claro. Con la forma
+   "el cliente elige A, B y C **desde la lista cerrada de C**", ¿salen los tres
+   de la lista o solo el tercero? Caso registrado: una regla así estuvo
+   `[CONFIRMADO]` y Must durante meses admitiendo las dos lecturas —de cada una
+   salía un producto distinto— y ninguna de las otras clases de esta lista la
+   detecta. Un ítem = UNA sola regla:
    dividir los compuestos con "y/o".
 4. [BN-XXX] con evidencia documentada y al menos una alternativa.
 5. [PE-XXX] que bloqueen decisiones de fases posteriores.
@@ -351,14 +353,14 @@ Verificar:
    al menos un [CA] que los cubre; todo [RN]/[PR] contribuye a algún [OB] o [CE] (el
    huérfano se elimina o se justifica). **Los procesos TAMBIÉN exigen criterio:** la
    versión anterior de esta regla solo nombraba [RN] y [CB], y por ese punto ciego
-   24 procesos Must llegaron aprobados sin un solo [CA] siendo CONFORMES con la regla
-   escrita (agentesIA, 2026-08-08) — el hueco no era negligencia contra la ley: ERA
-   la ley. También explica la asimetría medida: CB 80% de cobertura (estaba en la
-   cláusula), PR 51% (no estaba).
-9. **La regla 8 se MIDE, no se estima leyendo.** Evidencia del dolor: en agentesIA
-   (2026-08-08) un BRD "aprobado, 4 filtros de auditoría pasados" tenía el flujo
-   principal completo (PR-001 a PR-006) sin UN SOLO [CA], 30% de elementos inertes
-   (nadie los citaba y ningún CA los verificaba) y reglas de 1000+ caracteres — los
+   los procesos Must llegaron aprobados sin un solo [CA] **siendo CONFORMES con la
+   regla escrita** — el hueco no era negligencia contra la ley: ERA la ley. También
+   explica una asimetría que se repite al medir: los casos borde salen muy por
+   encima de los procesos, porque solo ellos estaban en la cláusula.
+9. **La regla 8 se MIDE, no se estima leyendo.** Evidencia del dolor: un BRD
+   aprobado, con varios filtros de auditoría pasados, tenía **el flujo principal
+   completo sin UN SOLO [CA]**, casi un tercio de sus elementos inertes (nadie los
+   citaba y ningún CA los verificaba) y reglas de más de mil caracteres — los
    filtros eran de lectura y la enfermedad era estructural. El estudio mecánico
    mide: (a) cobertura de CA por familia — **el camino feliz primero**: los casos
    borde suelen quedar mejor cubiertos que el flujo central, porque lo central "se
@@ -368,12 +370,14 @@ Verificar:
    para no romper citas; (d) hubs no confirmados — un ítem [INVESTIGADO]/[SUPUESTO]
    citado por 3+ es riesgo estructural: si cambia, arrastra; (e) cada ola de reglas
    nuevas entra CON sus CA — si crecen las reglas y no los criterios, la cobertura
-   se degrada en silencio (evidencia: v1.1 de agentesIA metió 46 elementos normativos
-   con 8 CA; la deuda nació en la captura, no en la revisión); (f) cuando el medidor
+   se degrada en silencio (evidencia: una sola versión metió decenas de elementos
+   normativos con un puñado de CA; la deuda nació en la captura, no en la
+   revisión); (f) cuando el medidor
    encuentra N casos de una clase, la corrección se dimensiona con la LISTA COMPLETA
    del medidor, nunca con los casos que motivaron la alerta — modo de falla
-   registrado: el saneamiento v2.9 cerró PR-001..006 y declaró victoria mientras
-   quedaban 81 Must sin criterio; se cierra la query, no el síntoma.
+   registrado: un saneamiento cerró los primeros procesos de la lista y declaró
+   victoria mientras quedaban decenas de elementos Must sin criterio; se cierra la
+   query, no el síntoma.
 
 Si hay problemas, marcar `[DUDA]` y preguntar al usuario antes de cerrar.
 
@@ -412,8 +416,8 @@ fuera —una nota, un enrutador de correcciones, un borrador— es asignar a cie
 el propio documento muestra cuál es el último ocupado. Y un ID cerrado o derogado
 conserva su fila: se marca, no se borra ni se recicla, porque las citas que lo nombran
 siguen existiendo. Evidencia de las dos mitades: un pendiente se numeró sobre uno ya
-cerrado, y en otra pasada seis ID propuestos desde un documento externo dieron ROJO en
-`docs-check` por citar definiciones inexistentes (agentesIA, 2026-08-07 y 2026-08-10).
+cerrado, y en otra pasada varios ID propuestos desde un documento externo dieron ROJO
+en `docs-check` por citar definiciones que aún no existían.
 
 **(4) El aviso no basta: el mismo turno cierra la cascada de desactualización.** Correr
 `tools/docs-fresh.py` y resolver cada línea de *Herencia fina* antes de dar el cambio por
@@ -423,11 +427,12 @@ ID, cruzando la columna de §19 contra las citas de cada documento.
 
 Por qué está escrito así, con evidencia: la versión anterior de esta cláusula terminaba en
 "avisa". Un aviso solo llega si esta skill está corriendo, y solo alcanza a los **pasos**
-de la cascada. En agentesIA (09/10-08-2026) el BRD avanzó de v3.1 a v3.9 en un día, el
-aviso se dio, el PRD se re-corrió — y quedaron **57 contradicciones vivas en 18
-documentos**, porque la mayoría no eran pasos y nadie los miraba. Tres de ellas estaban
-dentro del propio BRD: `CA-071` seguía condicionada a *"donde una norma lo prohíbe"* cuatro
-versiones después de que `RN-008` se volviera dura universal.
+de la cascada. Caso registrado: un BRD avanzó ocho versiones en un solo día, el aviso se
+dio, el documento heredero se re-corrió — y quedaron **decenas de contradicciones vivas
+repartidas en casi veinte documentos**, porque la mayoría no eran pasos y nadie los
+miraba. Algunas estaban dentro del propio BRD: un criterio de aceptación seguía
+condicionado a una excepción que la regla verificada había eliminado cuatro versiones
+antes.
 
 **Corolario para este mismo archivo:** cuando una regla del BRD cambia, barrer también los
 **criterios de aceptación y las notas** que la citan. Un `CA` que verifica el mundo
@@ -458,7 +463,7 @@ anterior no rompe ningún verificador de IDs y se lee como vigente.
 | 19 | Dejar al usuario colgado con "no sé" sin investigar u orientar. |
 | 20 | Dar por sano un BRD aprobado sin medirlo: los filtros de lectura no detectan enfermedad estructural (cobertura, inercia, hinchazón, hubs sin confirmar). Aprobado ≠ sano. |
 | 21 | Verificar los casos borde y dar por obvio el flujo principal. Lo central sin [CA] es el hueco más caro, porque es el camino que más se ejecuta. |
-| 22 | Dimensionar una corrección estructural con los casos que motivaron la alerta en vez de la lista completa del medidor (cerrar 6 de 81 y declarar victoria). |
+| 22 | Dimensionar una corrección estructural con los casos que motivaron la alerta en vez de la lista completa del medidor (cerrar un puñado de una lista larga y declarar victoria). |
 
 ---
 
@@ -494,9 +499,9 @@ anterior no rompe ningún verificador de IDs y se lee como vigente.
 **Cómo se cuentan esas cifras, porque es contraintuitivo:** salen de las **filas de
 elementos de §1 a §15**, nunca de contar ocurrencias de la etiqueta en el archivo. El
 §16 reexpone cada elemento y el §19 los nombra otra vez, así que un conteo por etiqueta
-los suma dos y tres veces. Evidencia: un cierre reportó 12 supuestos, 11 pendientes y 2
-bloqueos cuando los reales eran 5, 5 y 1 — el usuario preguntó qué significaban esos
-números y no había forma de sostenerlos (agentesIA, 2026-08-10). Un cuadro de cierre con
+los suma dos y tres veces. Evidencia: un cierre reportó más del doble de supuestos y de
+pendientes de los que había — el usuario preguntó qué significaban esos números y no
+había forma de sostenerlos. Un cuadro de cierre con
 cifras infladas es peor que uno sin cifras: se lee como medición.
 
 ---

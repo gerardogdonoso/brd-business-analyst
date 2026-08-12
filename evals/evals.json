@@ -1,6 +1,6 @@
 {
   "skill_name": "brd-business-analyst",
-  "notas": "Correr cada caso CON y SIN la skill: el delta es lo que la skill debe demostrar. Sin skill, Claude tiende a (a) aceptar decisiones tecnicas que el usuario ofrece, (b) marcar como acordado lo que el mismo infirio, (c) leer un documento y declararlo sano sin medirlo, y (d) cambiar una regla sin barrer los criterios que la verifican. Los cuatro casos apuntan a esas cuatro. Origen de los casos 3 y 4: agentesIA, 2026-08-10 -- el caso 4 reproduce un CA que sobrevivio cuatro versiones verificando el mundo anterior a la regla que lo motivaba, y que ningun control automatico detecto.",
+  "notas": "Correr cada caso CON y SIN la skill: el delta es lo que la skill debe demostrar. Sin skill, Claude tiende a (a) aceptar decisiones tecnicas que el usuario ofrece, (b) marcar como acordado lo que el mismo infirio, (c) leer un documento y declararlo sano sin medirlo, y (d) cambiar una regla sin barrer los criterios que la verifican. Los cuatro casos apuntan a esas cuatro. Los casos 3 y 4 salen de fallas reales observadas en un proyecto: el 4 reproduce un criterio de aceptacion que sobrevivio cuatro versiones verificando el mundo anterior a la regla que lo motivaba, sin que ningun control automatico lo detectara.",
   "evals": [
     {
       "id": 1,
