@@ -60,6 +60,7 @@ NIVEL 1: MODO          (Problema / Feature / Construcción)
 | 8 | **Términos del usuario**: Usar exactamente sus palabras. Sin sinónimos propios. |
 | 9 | **Separar hechos de inferencias**: `[CONFIRMADO]` = usuario. `[SUPUESTO]`/`[INVESTIGADO]` = skill. |
 | 10 | **No dejar al usuario colgado**: Si no sabe, investigar u orientar. Nunca registrar `[DUDA]` y detenerse. |
+| 11 | **Devolver la escena antes de escribir la regla**: antes de redactar una regla sobre **cómo opera el negocio del usuario** —quién entrega el acceso, quién nombra a quién, qué pasa cuando alguien se va—, describirle la escena **en una frase** y esperar su sí. Cuesta diez segundos y evita reescribir. Evidencia: en una sola sesión se escribieron cuatro reglas de operación por inferencia y el dueño corrigió las cuatro; **las cuatro veces su modelo real era MÁS SIMPLE que el inferido**, así que el error no fue faltar a un detalle sino agregar maquinaria que nadie pidió. |
 
 ---
 
@@ -344,6 +345,16 @@ Verificar:
    salía un producto distinto— y ninguna de las otras clases de esta lista la
    detecta. Un ítem = UNA sola regla:
    dividir los compuestos con "y/o".
+   **Y una clase más, que se detecta con el usuario y no leyendo: la palabra que
+   significa dos cosas.** Cuando el usuario usa un término distinto del que el
+   documento usa para lo mismo —o el mismo término para dos cosas distintas—, **eso
+   no es un descuido suyo: es la prueba de que el documento admite las dos
+   lecturas**. Se escribe una nota de vocabulario que distinga los ejes, y se revisa
+   qué elementos quedaron redactados con la palabra equivocada. Caso registrado: el
+   dueño llamó "roles" a lo que el documento llamaba "categorías"; el documento
+   distinguía categoría de *nivel* desde hacía versiones pero **nunca categoría de
+   *rol***, y esa ambigüedad ya había producido una regla que hacía a un rol dueño de
+   un guion, contradiciendo a la que decía que la dueña es una persona.
 4. [BN-XXX] con evidencia documentada y al menos una alternativa.
 5. [PE-XXX] que bloqueen decisiones de fases posteriores.
 6. Respuestas "no sé" sin activar §7.
