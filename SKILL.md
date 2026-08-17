@@ -61,6 +61,7 @@ NIVEL 1: MODO          (Problema / Feature / Construcción)
 | 9 | **Separar hechos de inferencias**: `[CONFIRMADO]` = usuario. `[SUPUESTO]`/`[INVESTIGADO]` = skill. |
 | 10 | **No dejar al usuario colgado**: Si no sabe, investigar u orientar. Nunca registrar `[DUDA]` y detenerse. |
 | 11 | **Devolver la escena antes de escribir la regla**: antes de redactar una regla sobre **cómo opera el negocio del usuario** —quién entrega el acceso, quién nombra a quién, qué pasa cuando alguien se va—, describirle la escena **en una frase** y esperar su sí. Cuesta diez segundos y evita reescribir. Evidencia: en una sola sesión se escribieron cuatro reglas de operación por inferencia y el dueño corrigió las cuatro; **las cuatro veces su modelo real era MÁS SIMPLE que el inferido**, así que el error no fue faltar a un detalle sino agregar maquinaria que nadie pidió. |
+| 12 | **La pregunta llega con su tarea hecha**: antes de pedirle al usuario una decisión o una validación, clasificarla. (a) Si la respuesta **se infiere del propio documento** —solo una opción es consistente con lo ya escrito—, no se pregunta: se aplica con la derivación citada y estado `[SUPUESTO]`, y el usuario veta. (b) Si **la industria ya lo resolvió** (inasistencias, pedidos cancelados, notificaciones, límites de frecuencia), se investiga ANTES de proponer: la propuesta llega con su contraste adjunto — nunca proponer a ciegas para investigar después de que el usuario diga "no sé". (c) Solo la **preferencia genuina de negocio** se pregunta, máximo 3 por turno. Evidencia: en una sesión, dos reglas propuestas sin contraste hicieron decir al dueño "no sé qué puedo decidir, ¿qué es lo recomendado?"; la investigación posterior confirmó ambas — tres turnos de supervisión que el contraste previo habría vuelto uno. Y de cuatro preguntas de un mismo turno, dos volvieron con "conviene investigar cuál es el estándar": una pregunta sin tarea hecha le transfiere el trabajo al supervisor, que es exactamente la persona cuyo trabajo esta skill existe para reducir. |
 
 ---
 
@@ -332,7 +333,20 @@ Must sin [CA])
 ### Revisión de consistencia (antes de mostrar BRD final)
 
 Verificar:
-1. Contradicciones entre [RN-XXX] solapados o contradictorios.
+1. Contradicciones entre [RN-XXX] solapados o contradictorios. **La clase que
+   mejor se esconde: la negación global.** Un elemento que niega en general
+   ("no hay X fuera de Y") es una afirmación falsable por cualquier elemento
+   posterior que establezca X por otra vía — y sobrevive porque los dos pueden
+   nombrar X con PALABRAS DISTINTAS, así que ni la relectura ni el cotejo de
+   vocabulario idéntico la cazan. Caso registrado: "no hay notificación fuera
+   de la consola" convivió `[CONFIRMADO]` con "el aviso sale por el canal que
+   la cuenta eligió", también `[CONFIRMADO]`, y de las dos lecturas salían dos
+   productos; se descubrió recién al redactar un criterio que necesitaba
+   apoyarse en ambos. Dos defensas que se complementan: el foco de exclusiones
+   de `salud-brd.py` lista los candidatos mecánicos, y **redactar CA es la otra
+   mitad del control** — escribir el criterio obliga a leer juntos los
+   elementos que verifica, y ahí es donde las contradicciones aparecen:
+   registrarlas al verlas, no seguir de largo.
 2. [SA-XXX] que contradiga [RN-XXX] confirmado.
 3. TODOS los ítems sin lenguaje vago: subjetivos ("fácil de usar", "amigable"),
    loopholes ("si es posible", "según corresponda"), comparativos sin referencia,
@@ -388,7 +402,19 @@ Verificar:
    del medidor, nunca con los casos que motivaron la alerta — modo de falla
    registrado: un saneamiento cerró los primeros procesos de la lista y declaró
    victoria mientras quedaban decenas de elementos Must sin criterio; se cierra la
-   query, no el síntoma.
+   query, no el síntoma; (g) **la cifra de cobertura mezcla DOS enfermedades
+   distintas: falta el CRITERIO o falta la CONDUCTA.** Si para escribir el CA hay
+   que inventar qué hace el sistema, no falta el criterio — falta la regla: es un
+   hueco de negocio con disfraz de deuda técnica, y se deriva de las reglas
+   vigentes (entrando [SUPUESTO] con el contraste del Principio 12) o se enruta
+   como decisión — nunca se tapa con un CA, que se leería como cobertura real.
+   Evidencia: de siete casos borde sin CA, cuatro se cubrieron citando conducta
+   ya escrita y tres no tenían conducta que citar; (h) **una marca de
+   no-exigibilidad acota LO QUE NOMBRA, no el elemento entero**: lo demás del
+   elemento se verifica hoy. Evidencia: tres reglas con marca llevaban versiones
+   sin CA teniendo la conducta principal perfectamente verificable — la marca
+   cubría un detalle (una lista por declarar, el lugar donde vive un dato) y se
+   leyó como bloqueo total.
 
 Si hay problemas, marcar `[DUDA]` y preguntar al usuario antes de cerrar.
 
