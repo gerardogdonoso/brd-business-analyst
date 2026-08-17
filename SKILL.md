@@ -358,7 +358,13 @@ Verificar:
    `[CONFIRMADO]` y Must durante meses admitiendo las dos lecturas —de cada una
    salía un producto distinto— y ninguna de las otras clases de esta lista la
    detecta. Un ítem = UNA sola regla:
-   dividir los compuestos con "y/o".
+   dividir los compuestos con "y/o". **La regla compuesta que sobrevive cobra
+   dos veces:** caso registrado — una regla Must con TRES conductas tenía UNA
+   sola prueba (el CA cubría dos y la tercera quedó sin criterio que obligara
+   a leerla) y una sola marca de pendientes que contaba los valores de dos.
+   La conducta sin prueba y sin marca fue invisible para todos los filtros
+   hasta que una herramienta cruzó las señales. Los candidatos mecánicos a
+   este punto los lista `salud-brd.py` foco [4]: regla larga con prueba única.
    **Y una clase más, que se detecta con el usuario y no leyendo: la palabra que
    significa dos cosas.** Cuando el usuario usa un término distinto del que el
    documento usa para lo mismo —o el mismo término para dos cosas distintas—, **eso
@@ -414,7 +420,12 @@ Verificar:
    elemento se verifica hoy. Evidencia: tres reglas con marca llevaban versiones
    sin CA teniendo la conducta principal perfectamente verificable — la marca
    cubría un detalle (una lista por declarar, el lugar donde vive un dato) y se
-   leyó como bloqueo total.
+   leyó como bloqueo total; (i) **la marca se re-deriva contra la regla ENTERA
+   cada vez que la regla crece**: la marca escrita durante una ampliación tiende
+   a contar solo los pendientes de la ola que la amplió. Evidencia: una regla
+   amplió sus límites con dos valores nuevos y su marca quedó diciendo "los dos
+   números exactos" — la tercera magnitud, que ya vivía en la regla, quedó fuera
+   de la marca, fuera de la lista de calibración y fuera de toda lectura.
 
 Si hay problemas, marcar `[DUDA]` y preguntar al usuario antes de cerrar.
 
