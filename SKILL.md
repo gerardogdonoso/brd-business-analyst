@@ -375,6 +375,24 @@ Verificar:
    distinguía categoría de *nivel* desde hacía versiones pero **nunca categoría de
    *rol***, y esa ambigüedad ya había producido una regla que hacía a un rol dueño de
    un guion, contradiciendo a la que decía que la dueña es una persona.
+   ⚠️ **Y su variante silenciosa, que ese disparador NO caza: el término usado
+   BIEN y nunca declarado.** El caso anterior se detecta porque el usuario emplea
+   otra palabra; este no emite ninguna señal — el documento usa el término de forma
+   consistente en más de cien apariciones y aun así **cada lector nuevo tiene que
+   inferir a cuál de las entidades de la cadena designa**. La consistencia no
+   sustituye a la declaración: quien lee no tiene manera de saber que es
+   consistente. **Contra quién se mide la ambigüedad, y este es el criterio que
+   decide:** no contra el lector humano —que repregunta y lo resuelve en un turno—
+   sino contra **el lector que no puede repreguntar**, el que toma el documento para
+   construir. Ahí la lectura se elige en silencio y queda escrita en el código: la
+   misma frase que cuesta una pregunta en la sala cuesta un defecto en el
+   repositorio. **Por eso la nota de vocabulario declara también la cardinalidad de
+   cada eslabón** (1:1, 1:n): esa línea es la que después se vuelve esquema de
+   datos, y el usuario suele dictarla entera sin saber que está dictando un modelo.
+   Caso registrado: el dueño dibujó la cadena a mano en una sola frase —*"yo tengo
+   uno, y el mío tiene muchos"*— recién después de que dos documentos consecutivos
+   la dieran por obvia, y la misma ambigüedad volvió a costar una pregunta al día
+   siguiente.
 4. [BN-XXX] con evidencia documentada y al menos una alternativa.
 5. [PE-XXX] que bloqueen decisiones de fases posteriores.
 6. Respuestas "no sé" sin activar §7.
