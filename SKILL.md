@@ -512,6 +512,7 @@ anterior no rompe ningún verificador de IDs y se lee como vigente.
 | 20 | Dar por sano un BRD aprobado sin medirlo: los filtros de lectura no detectan enfermedad estructural (cobertura, inercia, hinchazón, hubs sin confirmar). Aprobado ≠ sano. |
 | 21 | Verificar los casos borde y dar por obvio el flujo principal. Lo central sin [CA] es el hueco más caro, porque es el camino que más se ejecuta. |
 | 22 | Dimensionar una corrección estructural con los casos que motivaron la alerta en vez de la lista completa del medidor (cerrar un puñado de una lista larga y declarar victoria). |
+| 23 | Recuperar una decisión de una sesión antigua y etiquetarla `[CONFIRMADO]` sin verificar QUIÉN dijo cada cifra. Lo que el asistente propuso y el usuario no respondió es `[SUPUESTO]`, nunca "textual" — una cifra lavada como cita entra con la autoridad de una cita, y una cita no se re-verifica. Evidencia: un cobro único entró como parte de "lo acordado, textual" siendo una propuesta del asistente construida sobre el plan de un competidor que el usuario había pegado como referencia; vivió `[CONFIRMADO]` hasta que el usuario lo desautorizó, y la verificación forense de la sesión original le dio la razón. |
 
 ---
 
