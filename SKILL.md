@@ -512,6 +512,40 @@ antes.
 **criterios de aceptación y las notas** que la citan. Un `CA` que verifica el mundo
 anterior no rompe ningún verificador de IDs y se lee como vigente.
 
+**(5) Correr `tools/cazador-obsoletos.py`, porque la cascada por cita tiene un punto
+ciego estructural.** `docs-fresh` computa la herencia **por ID citado** — su propio código
+lo dice: *«solo mira los IDs que este doc ya cita»*. **Dos elementos que se contradicen sin
+citarse son invisibles para él, por diseño**, y esa es justo la forma que toma el defecto
+cuando una decisión nueva no baja a la regla que la heredaba.
+
+Evidencia del caso que lo motiva: una regla se corrigió con la decisión del dueño, se
+escribió su fila de §19… y **el criterio no se bajó al texto de la regla que la heredaba**,
+que quedó diciendo lo del día anterior. El documento afirmaba dos cosas incompatibles y
+quien codificara elegiría una en silencio. Lo detectó **el dueño preguntando**, no una
+herramienta. Un barrido posterior encontró **24 casos más en 1.155 elementos**, y **18 de
+los 24 eran el mismo patrón: el barrido se detuvo un nivel antes**. Los criterios de
+aceptación fueron el nivel más olvidado (9 de 24) y las marcas `[NO EXIGIBLE]` el segundo.
+
+**El reparto del trabajo, y hay que respetarlo o se cree cubierto lo que no lo está:**
+
+- **Lo mecánico lo caza el script**, en segundos y sin falsos positivos medidos: titular
+  con numeral contra su enumeración interna, citas a IDs derogados o fuera de alcance
+  usadas como vigentes, y conteos citados (*«las seis funciones de X»*) cruzados contra lo
+  que X enumera. Cubrió 3 de los 24 de aquella corrida.
+- **Lo semántico necesita leer.** Las contradicciones entre dos elementos que no se citan
+  **ninguna herramienta las ve**: eso exige un agente que recorra el documento entero. El
+  script no lo suple y lo declara en su propia cabecera.
+
+**El aviso periódico es parte del protocolo, no una sugerencia.** El script sella la
+versión de la última cacería profunda (`--sellar`) y **avisa cuando han pasado 8 versiones
+sin una nueva**. Al ver ese aviso, esta skill **lo dice en el mensaje de cierre** y ofrece
+lanzarla; no la ejecuta por su cuenta. El umbral se ajusta con `--avisar-cada`.
+
+⚠️ **La línea base no es para silenciar.** `--sellar` marca como *conocidos* los hallazgos
+**que ya tienen fila en el enrutador de correcciones**, para que el reporte muestre lo
+nuevo en vez de repetir deuda enrutada. **Sellar algo que no está enrutado lo desaparece**,
+y es la única forma de que este control mienta.
+
 ### Anti-patrones (prohibiciones)
 
 | # | Anti-patrón |
@@ -539,6 +573,7 @@ anterior no rompe ningún verificador de IDs y se lee como vigente.
 | 21 | Verificar los casos borde y dar por obvio el flujo principal. Lo central sin [CA] es el hueco más caro, porque es el camino que más se ejecuta. |
 | 22 | Dimensionar una corrección estructural con los casos que motivaron la alerta en vez de la lista completa del medidor (cerrar un puñado de una lista larga y declarar victoria). |
 | 23 | Recuperar una decisión de una sesión antigua y etiquetarla `[CONFIRMADO]` sin verificar QUIÉN dijo cada cifra. Lo que el asistente propuso y el usuario no respondió es `[SUPUESTO]`, nunca "textual" — una cifra lavada como cita entra con la autoridad de una cita, y una cita no se re-verifica. Evidencia: un cobro único entró como parte de "lo acordado, textual" siendo una propuesta del asistente construida sobre el plan de un competidor que el usuario había pegado como referencia; vivió `[CONFIRMADO]` hasta que el usuario lo desautorizó, y la verificación forense de la sesión original le dio la razón. |
+| 24 | Dar la cascada por cerrada sin correr el cazador de obsoletos, o sellar su línea base con hallazgos que no tienen fila en el enrutador. |
 
 ---
 
