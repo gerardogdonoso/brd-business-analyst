@@ -95,6 +95,7 @@ y los derivados van después, no intercalados. Y de cuatro preguntas de un mismo
 | **Contraste registrado** | Cuando el dueño elige distinto del estándar, el contraste queda escrito **aunque no cambie de idea** |
 | **Castellano normativo** | Acortar no autoriza a introducir ambigüedad: anfibología, referencia rota y sujeto tácito, con sus tres soluciones |
 | **La historia sale del documento vivo** | Lo que dejó de regir se **muda** a su archivo y se consulta; no se acumula en la línea que alguien va a programar |
+| **La corrección baja a la prueba** | Corregir una regla y dejar sus criterios con la formulación vieja **deja la prueba legitimando lo que la regla prohíbe**. Los criterios del elemento tocado se revisan **en la misma pasada** |
 
 **Y lo que es PROPIO de cada una, para que nadie fuerce una simetría falsa:** de `brd-business-analyst` son los montones de quién resuelve un hueco de negocio, la prueba que legisla y las cifras huérfanas —porque solo ella escribe reglas de negocio—; de `crea-suite` son la orquestación de subagentes, los niveles y las puertas.
 
