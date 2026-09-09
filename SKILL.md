@@ -99,6 +99,7 @@ y los derivados van después, no intercalados. Y de cuatro preguntas de un mismo
 | **Castellano normativo** | Acortar no autoriza a introducir ambigüedad: anfibología, referencia rota y sujeto tácito, con sus tres soluciones |
 | **La historia sale del documento vivo** | Lo que dejó de regir se **muda** a su archivo y se consulta; no se acumula en la línea que alguien va a programar |
 | **La corrección baja a la prueba** | Corregir una regla y dejar sus criterios con la formulación vieja **deja la prueba legitimando lo que la regla prohíbe**. Los criterios del elemento tocado se revisan **en la misma pasada** |
+| **La unidad que se entrega al que codifica es la FUNCIONALIDAD, no el documento** | Lo global es la biblioteca; lo que se construye vive en `docs/specs/<NNN-nombre>/`, autocontenido, **con su historia, sus datos y su acuerdo en CUANDO / SI / ENTONCES**. Se inyecta solo lo que aplica a esa historia, nunca el documento entero. **Y el plan técnico se escribe por funcionalidad: el documento técnico global no bloquea** |
 | **La cifra que decide declara cómo se midió** | Antes de usar un número para decidir se nombra **qué se contó y qué quedó fuera**, y se contrasta contra un caso conocido o un segundo instrumento. **Si dos mediciones del mismo objeto discrepan, no gana la más nueva: se abre un caso a mano** |
 | **El vecindario se lee antes de escribir** | A quién cita, quién lo cita y con qué criterios comparte cobertura (`vecinos-brd.py`). El defecto que más se esconde no es la regla mal escrita: son dos reglas correctas que nadie leyó juntas *(está aquí como principio 12-bis; faltaba en esta tabla, que es el mecanismo de sincronía)* |
 | **Texto o control, no los dos** | Si el defecto YA tenía su regla escrita y ocurrió igual, la medicina no es repetirla: es un control que la verifique. Una skill es la MEMORIA del método; un control es lo que OBLIGA *(está aquí como CONTRA-INDICACIÓN; faltaba en esta tabla)* |
@@ -669,7 +670,7 @@ ejecutó.
 - No hay `[DUDA]` bloqueante. `[PENDIENTE]` explicita qué bloquea.
 - Usuario confirmó BRD en Etapa C.
 - Revisión de consistencia sin contradicciones.
-- Criterios de aceptación verificables (Dado/Cuando/Entonces).
+- Criterios de aceptación verificables, **separando el EVENTO del ESTADO**: `CUANDO` un evento ocurre · `SI` un estado se cumple · `MIENTRAS` algo dura · `DONDE` rige un contexto, y la respuesta siempre en `DEBERA`. *(Es la sintaxis EARS, que Amazon Kiro adoptó como estándar de sus specs **porque una máquina la puede leer**; ver `braingrid.ai/blog/ears-notation`.)* 🔴 **`Dado/Cuando/Entonces` NO basta y por eso se cambió el 09-09-2026: su «cuando» tapa evento y estado en la misma palabra, y esa es justo la distinción que un control no puede comprobar en prosa** — un criterio que dice *«cuando el agente detecta hostilidad»* no deja ver si espera un hecho registrado o un juicio del modelo, que es el defecto que este método ya midió cinco veces y las cinco costaban plata o exposición legal.
 - Handoff 100% trazable a IDs existentes, sin texto nuevo.
 - Ningún "no sé" quedó sin investigar u orientar.
 
