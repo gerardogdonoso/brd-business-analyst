@@ -92,7 +92,7 @@ y los derivados van después, no intercalados. Y de cuatro preguntas de un mismo
 
 | Principio | Qué exige |
 |---|---|
-| **Investigar antes de proponer** | Lo que la industria o la ley ya resolvieron **se investiga ANTES**, nunca se pregunta primero |
+| **Investigar antes de proponer — Y ANTES DE AFIRMAR** | Lo que la industria o la ley ya resolvieron **se investiga ANTES**, nunca se pregunta primero. 🔴 **Y el 10-09-2026 se le agregó el tercer verbo, porque los dos primeros no alcanzaban:** la regla decía *proponer* y *preguntar*, **así que una AFIRMACIÓN de paso sobre el mundo de afuera no obligaba a abrir nada**. El caso: se afirmó que partir el flujo en dos llamadas al modelo *«encarece»* — al mirar los precios publicados resultó **+1% a +5%**, y lo caro era otra cosa. **Un precio, una tarifa, un umbral publicado, lo que una plataforma permite o lo que dice una norma NO se afirman de memoria: se abren.** Tercera vez que esta misma regla se queda corta por el verbo — nació para huecos del negocio, el 08-09 se extendió a las propuestas de método, y hoy a las afirmaciones |
 | **Una regla vive donde se lee** | Un principio que gobierna el trabajo diario se copia al `CLAUDE.md` del proyecto: **una skill solo se carga cuando la invocan** |
 | **Fuente recomprobable** | Cada hallazgo con dirección, documento, norma o fecha; lo abierto se separa de lo referido; la página de venta se marca |
 | **Contraste registrado** | Cuando el dueño elige distinto del estándar, el contraste queda escrito **aunque no cambie de idea** |
