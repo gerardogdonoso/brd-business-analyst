@@ -645,6 +645,11 @@ Verificar:
     horas» **que la ley chilena no contiene: era el del reglamento europeo, copiado**. Las
     dos cifras falsas estaban repetidas en once documentos derivados. Los criterios
     (`CA-`) quedan fuera del barrido: ahí un número es dato de escenario, no regla.
+    🔴 **Y el CONTEO que una regla declara sobre una lista que vive en otro documento se recuenta
+    sobre las filas de esa lista, con instrumento, en cada versión que la toque** *(13-09-2026: la
+    regla madre de las barreras traía 313 · 169/49/45 desde veinte versiones atrás cuando las filas
+    daban 317 · 192/58/51; el total se corrigió una vez copiando una cabecera que también venía
+    desviada — copiar no es recontar)*. La skill hermana lo mide del lado del derivado (§5 punto 10).
 12. **Las coordenadas del mapa: identificador único · sintaxis · familia · taxonomía.**
     Son cuatro planos distintos y se auditan aparte: ID repetido o hueco sin mecanismo;
     ID mal formado; elemento que vive en la familia equivocada (una restricción escrita
