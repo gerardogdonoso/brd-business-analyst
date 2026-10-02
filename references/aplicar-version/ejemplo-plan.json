@@ -1,0 +1,29 @@
+{
+ "version": "5.95",
+ "fecha": "2026-10-02",
+ "tema": "bloque DY: las mismas dos citas en otros dos elementos",
+ "resumen": "bloque DY, barrido de las citas de DY-7 y DY-9: `RN-405` atribuía el trato tú o usted a `RE-007` y `CA-220` citaba la baja del lead en `RN-006`; las dos citas pasan a `RN-197` y a `RN-368` (6) y `DA-IN-038`",
+ "motivo": "Segundo barrido, con palabras distintas, de lo que corrigen las filas DY-7 y DY-9 (el primero fue la búsqueda de la cita en los elementos que las filas nombraban): halló un elemento más en cada caso, y los demás usos de `RN-006` (ventana de 24 horas, plantilla, opt-in) se leyeron y son correctos.",
+ "aprobado": "Por derivación o investigación (manda el estándar, 25-09-2026); estas filas no traen palabras del dueño",
+ "revisados": [],
+ "ediciones": [
+  {
+   "fila": "DY-9",
+   "id": "RN-405",
+   "viejo": "las cuatro dimensiones del tono, la extensión y los emoticones (`RN-197`), el trato tú/usted (`RE-007`), y el VOCABULARIO PROPIO",
+   "nuevo": "las cuatro dimensiones del tono, la extensión, los emoticones y el trato tú/usted (`RN-197`), y el VOCABULARIO PROPIO"
+  },
+  {
+   "fila": "DY-7",
+   "id": "CA-220",
+   "viejo": "o darse de baja (`RN-006`)—",
+   "nuevo": "o darse de baja —el acto de baja registrado, que es la revocación del consentimiento con su fecha y su vía: `RN-368` (6), `DA-IN-038`—"
+  },
+  {
+   "fila": "DY-7",
+   "id": "CA-220",
+   "viejo": "| RN-034, RN-031, RN-063, RN-018, RN-006 |",
+   "nuevo": "| RN-034, RN-031, RN-063, RN-018, RN-368 |"
+  }
+ ]
+}

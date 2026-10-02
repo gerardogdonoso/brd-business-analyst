@@ -595,6 +595,8 @@ ejecutó.
 Todo cambio al BRD después de C4: (1) incrementa la versión del encabezado; (2) agrega
 fila en §19 con los IDs afectados; (3) avisa que crea-suite debe invalidar y
 re-verificar SOLO los pasos que dependen de esos IDs — nunca regenerar la suite entera.
+**Las tres cosas las hace una herramienta desde un plan revisado, y sus trampas medidas
+están escritas: `references/aplicar-version/LEEME.md`** (se abre al aplicar una versión).
 
 **Los ID los asigna quien escribe en el BRD, y no se reutilizan.** Reservarlos desde
 fuera —una nota, un enrutador de correcciones, un borrador— es asignar a ciegas: solo
@@ -641,7 +643,8 @@ elementos que no se citan exigen un agente que recorra el documento entero. **El
 periódico es parte del protocolo:** el script sella la versión de la última cacería
 profunda (`--sellar`) y **avisa cuando han pasado 8 versiones sin una nueva**; al ver ese
 aviso, esta skill lo dice en el mensaje de cierre y ofrece lanzarla; no la ejecuta por su
-cuenta (umbral: `--avisar-cada`). ⚠️ **La línea base no es para silenciar:** `--sellar`
+cuenta (umbral: `--avisar-cada`).
+*(La del 01-10-2026 se corrió por paquetes por tema, con lectura en lotes de texto, fichas, un cruce de fichas y una segunda lectura a ciegas; herramientas, encargos, costo medido y trampas: `references/caceria-profunda/LEEME.md`.)* ⚠️ **La línea base no es para silenciar:** `--sellar`
 marca como *conocidos* solo los hallazgos que ya tienen fila en el enrutador; sellar algo
 que no está enrutado lo desaparece, y es la única forma de que este control mienta.
 
