@@ -35,9 +35,9 @@ for c in cons:
 print("pares por lector de origen:", dict(sorted(por_l.items())))
 print("pares que se citan:", sum(1 for c in cons if c["se_citan_real"]), "de", len(cons), "; con una nota NT:", sum(1 for c in cons if any(i.startswith("NT-") for i in c["par"])))
 print("pares con fila previa en el enrutador:", sum(1 for c in cons if c["conocido"]), "; de esos no compatibles:", sum(1 for c in cons if c["conocido"] and ver[c["n"]]["veredicto"] != "compatible"))
-print("pares que tocan un elemento cambiado desde la v5.83:", sum(1 for c in cons if any(c["cambio"].values())), "; no compatibles:", sum(1 for c in cons if any(c["cambio"].values()) and ver[c["n"]]["veredicto"] != "compatible"))
+print("pares que tocan un elemento cambiado desde la v5.95:", sum(1 for c in cons if any(c["cambio"].values())), "; no compatibles:", sum(1 for c in cons if any(c["cambio"].values()) and ver[c["n"]]["veredicto"] != "compatible"))
 elems = {i for c in cons for i in c["par"]}
-print("elementos distintos en los 62 pares:", len(elems))
+print("elementos distintos en los pares:", len(elems))
 print()
 for n in sorted(ver):
     v = ver[n]

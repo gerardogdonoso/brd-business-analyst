@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""escribe_dx.py — junta primer lector + verificador a ciegas y emite las filas del bloque DX del enrutador.
+"""escribe_dx.py — junta primer lector + verificador a ciegas y emite las filas del bloque EA del enrutador.
 Salida: dx_filas.md (las filas de pares que NO son compatibles), dx_descartadas.md (los compatibles, con la razon),
 dx_resumen.json (conteos). No inventa nada: cada frase sale de un campo de un lector o del instrumento.
 Uso: python escribe_dx.py [--matriz]"""
@@ -75,6 +75,9 @@ LETRA = {"derivado": ("a", "Claude, derivándolo de lo ya escrito"), "investigar
          "sistema": ("e", "nadie todavía: necesita el sistema construido"), "trd": ("f", "el TRD")}
 CEDE = {"A": 0, "B": 1}
 
+# pares «compatibles» que igual se enrutan: {n: "texto del estado"}, en promover.json (se llena a mano en cada corrida)
+_pf = os.path.join(SP, "promover.json")
+PROMOVER = {int(k): v for k, v in json.load(io.open(_pf, encoding="utf-8")).items()} if os.path.exists(_pf) else {}
 filas = []; descartadas = []; sin_ver = []
 cuenta = Counter(); matriz = Counter()
 for c in cons:
@@ -89,7 +92,6 @@ for c in cons:
     ok_v = citas_ok_verificador(v, a, b)
     if not ok_v:
         cuenta["citas_del_verificador_no_pasan"] += 1
-    PROMOVER = {56: "cita mal dirigida (no es un choque entre dos reglas)", 95: "cita mal dirigida y una decisión pendiente que sigue abierta"}
     if veredicto == "compatible" and n in PROMOVER:
         veredicto = "promovido"
     if veredicto == "compatible":
@@ -113,6 +115,9 @@ for c in cons:
         hacer = "Decidir cuál rige: %s" % limpia(sin_comillas(v.get("por_que_cede")), 420)
     if v.get("cambia_lo_que_se_programa") in ("si", "sí"):
         hacer += " (cambia lo que se programa)"
+    prom = PROMOVER.get(n) if veredicto == "promovido" else None
+    if isinstance(prom, dict) and prom.get("hacer"):
+        hacer = prom["hacer"]
     conoc = ""
     if c["conocido"]:
         conoc = " Los dos IDs ya comparten fila con %s." % ", ".join("`%s` (%s)" % (r, e) for r, e in c["conocido"][:4])
@@ -120,8 +125,8 @@ for c in cons:
     for e in (a, b):
         cv = CAMBIO.get(e)
         if cv:
-            cam.append("`%s` cambió en %s" % (e, ", ".join("v" + x for x in sorted(cv, key=float))))
-    cam = ("; ".join(cam) + ".") if cam else "Ninguno cambió desde la v5.58."
+            cam.append("`%s` cambió en %s" % (e, ", ".join("v" + x for x in sorted(cv, key=lambda v: tuple(int(x) for x in v.split("."))))))
+    cam = ("; ".join(cam) + ".") if cam else "Ninguno cambió desde la v5.95."
     citan = "Se citan entre sí." if c["se_citan_real"] else "No se citan."
     primer = "lector %s: %s, confianza %s" % ("/".join(c["lentes"]), "/".join(c["clases"]), "/".join(sorted(set(str(x) for x in c["confianza"]))))
     if a == b:
@@ -131,20 +136,25 @@ for c in cons:
     qa = limpia(h.get("cita_a"), 230); qb = limpia(h.get("cita_b"), 230)
     x, y = h["par"]
     partes = "*%s* (`%s`) frente a *%s* (`%s`)" % (delim(qa, x), x, delim(qb, y), y)
-    estado = {"contradice": "contradice", "en-parte": "contradice en parte", "no-decidible": "no se puede decidir", "promovido": PROMOVER.get(n, "")}.get(veredicto, veredicto)
+    _p = PROMOVER.get(n, "")
+    estado = {"contradice": "contradice", "en-parte": "contradice en parte", "no-decidible": "no se puede decidir",
+              "promovido": _p.get("estado", "") if isinstance(_p, dict) else _p}.get(veredicto, veredicto)
     quien_txt = "**(%s)** %s" % (letra, quien)
     if letra == "d":
         quien_txt += ": %s" % limpia(sin_comillas(v.get("razon")), 200)
     vec = [i for i in (v.get("vecinos_abiertos") or []) if i not in (a, b)]
     base = ", ".join("`%s`" % i for i in ([a] if a == b else [a, b]) + vec[:4])
-    fila = "| **DX-%d** | ○ **SIN VERIFICAR POR LA SESIÓN PRINCIPAL** (%s; segundo lector a ciegas: **%s**; las citas de los dos lectores pasaron el script) | **%s.** %s *Segundo lector:* %s %s %s%s | %s | %s | %s |" % (
-        n, primer, estado, sujeto[0].upper() + sujeto[1:] if False else sujeto, partes, limpia(sin_comillas(v.get("razon")), 1000), citan, cam, conoc, base, hacer, quien_txt)
+    # 03-10-2026: decia siempre «las citas de los dos lectores pasaron el script» aunque las del segundo no pasaran
+    txt_citas = ("las citas de los dos lectores pasaron el script" if ok_v
+                 else "las citas del primer lector pasaron el script; las citas clave del segundo NO")
+    fila = "| **EA-%d** | ○ **SIN VERIFICAR POR LA SESIÓN PRINCIPAL** (%s; segundo lector a ciegas: **%s**; %s) | **%s.** %s *Segundo lector:* %s %s %s%s | %s | %s | %s |" % (
+        n, primer, estado, txt_citas, sujeto, partes, limpia(sin_comillas(v.get("razon")), 1000), citan, cam, conoc, base, hacer, quien_txt)
     filas.append((n, fila))
 
 io.open(os.path.join(SP, "dx_filas.md"), "w", encoding="utf-8").write("\n".join(f for _, f in sorted(filas)) + "\n")
 d = ["| # | Par | Razón del segundo lector | Filas con los dos IDs |", "|---|---|---|---|"]
 for n, a, b, r, k in sorted(descartadas):
-    d.append("| DX-%d | `%s` · `%s` | %s | %s |" % (n, a, b, r, ", ".join("%s (%s)" % (x, e) for x, e in k[:3]) or "—"))
+    d.append("| EA-%d | `%s` · `%s` | %s | %s |" % (n, a, b, r, ", ".join("%s (%s)" % (x, e) for x, e in k[:3]) or "—"))
 io.open(os.path.join(SP, "dx_descartadas.md"), "w", encoding="utf-8").write("\n".join(d) + "\n")
 res = {"pares": len(cons), "sin_veredicto": sin_ver, "veredictos": dict(cuenta), "filas": len(filas), "descartadas": len(descartadas),
        "lineas_de_veredicto_mal_formadas": malos}

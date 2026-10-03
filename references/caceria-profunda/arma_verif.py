@@ -60,8 +60,8 @@ for n, grupo in enumerate(por_paq, 1):
         indice[str(c["n"])] = [a, b]
         out.append("## PAR %d: %s  <->  %s" % (c["n"], a, b))
         out.append("clase(s) que dijo el primer lector: %s" % ", ".join(c["clases"]))
-        out.append("%s cambio en: %s | %s cambio en: %s" % (a, ", ".join("v" + v for v in sorted(CAMBIO.get(a, []), key=float)) or "no cambio desde la ultima lectura entera",
-                                                           b, ", ".join("v" + v for v in sorted(CAMBIO.get(b, []), key=float)) or "no cambio desde la ultima lectura entera"))
+        out.append("%s cambio en: %s | %s cambio en: %s" % (a, ", ".join("v" + v for v in sorted(CAMBIO.get(a, []), key=lambda v: tuple(int(x) for x in v.split(".")))) or "no cambio desde la ultima lectura entera",
+                                                           b, ", ".join("v" + v for v in sorted(CAMBIO.get(b, []), key=lambda v: tuple(int(x) for x in v.split(".")))) or "no cambio desde la ultima lectura entera"))
         out.append("¿se citan? %s" % ("SI (uno cita al otro)" if c["se_citan_real"] else "NO"))
         for h in c["hallazgos"][:2]:
             x, y = h["par"]

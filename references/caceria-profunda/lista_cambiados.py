@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""Saca de las filas de §19 (BRD + historial) los IDs que cada version v5.59..v5.83 toco.
+"""Saca de las filas de §19 (BRD + historial) los IDs que cada version LO..HI toco (por defecto v5.96..v5.108).
 Salida: lista_cambiados.json con {version: {nuevos, modificados, revisados}} y la union.
 Cuenta: lo que la columna «IDs afectados» nombra como Nuevos / Modificados / Criterios revisados sin cambio;
 expande los rangos «CA-X a CA-Y» y «CA-X, ..., CA-Y». NO cuenta los IDs que aparecen solo en la columna Motivo."""
@@ -37,7 +37,9 @@ def parte(celda, clave_ini, claves_todas):
             out += celda[e:fin] + " "
     return out
 
-LO = float(os.environ.get('LO','5.59')); HI = float(os.environ.get('HI','5.83'))
+def vk(v):
+    return tuple(int(x) for x in str(v).split('.'))
+LO = vk(os.environ.get('LO','5.96')); HI = vk(os.environ.get('HI','5.108'))
 SALIDA = os.environ.get('SALIDA','lista_cambiados.json')
 CLAVES = ["Nuevos", "Modificados", "Criterios revisados sin cambio", "Derogados", "Derogado", "Revisados sin cambio"]
 
@@ -51,13 +53,13 @@ for ruta in ("docs/BRD.md", "docs/BRD-historial.md"):
             if len(celdas) < 6:
                 continue
             ver = celdas[2].strip()
-            if not re.match(r'^5\.\d\d$', ver):
+            if not re.match(r'^5\.\d{2,3}$', ver):
                 continue
             filas.setdefault(ver, {"fecha": celdas[1].strip(), "fuente": ruta, "celda": celdas[3]})
 
 res = {}
-for ver in sorted(filas, key=lambda v: float(v)):
-    n = float(ver)
+for ver in sorted(filas, key=vk):
+    n = vk(ver)
     if not (LO <= n <= HI):
         continue
     c = filas[ver]["celda"]
@@ -72,7 +74,7 @@ for ver in sorted(filas, key=lambda v: float(v)):
     }
 
 print("versiones halladas:", len(res), "rango", LO, HI)
-faltan = [("5.%d" % k) for k in range(59, 84) if ("5.%d" % k) not in res]
+faltan = [("5.%d" % k) for k in range(LO[1], HI[1] + 1) if ("5.%d" % k) not in res]
 print("faltan:", faltan)
 for v, d in res.items():
     print(v, d["fecha"], d["fuente"].split("/")[-1], "nuevos=%d modificados=%d revisados=%d derogados=%d celda=%d" % (

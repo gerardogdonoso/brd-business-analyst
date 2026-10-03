@@ -59,18 +59,18 @@ def imprime(k):
     print("(cada elemento: ID · versiones en que cambio desde la ultima lectura entera · CITA A · LO CITAN)\n")
     for i in ids:
         cam = CAMBIO.get(i)
-        marca = " · CAMBIO en v" + ", v".join(sorted(cam, key=float)) if cam else ""
+        marca = " · CAMBIO en v" + ", v".join(sorted(cam, key=lambda v: tuple(int(x) for x in v.split(".")))) if cam else ""
         print("### %s%s" % (i, marca))
         print("cita a: %s | lo citan: %s" % (lista(CITAS.get(i, [])), lista(ENT.get(i, []), 8)))
         print(E[i])
         print()
 
 if "--marco" in sys.argv:
-    # el marco que MANDA: las nueve notas de vocabulario (NT-) y las tres relaciones del dueño
+    # el marco que MANDA: las diez notas de vocabulario (NT-) y las tres relaciones del dueño
     import re
     n = sys.argv[sys.argv.index("--marco") + 1]
     if n == "1":
-        print("=== MARCO 1 de 2 · LAS NUEVE NOTAS DE VOCABULARIO (NT-001 a NT-009), texto integro de docs/BRD.md ===\n")
+        print("=== MARCO 1 de 2 · LAS DIEZ NOTAS DE VOCABULARIO (NT-001 a NT-010), texto integro de docs/BRD.md ===\n")
         for k, ln in enumerate(io.open(r"C:\Users\User\Projects\agentesIA\docs\BRD.md", encoding="utf-8"), 1):
             if ln.startswith("## 16."):
                 break
@@ -78,8 +78,9 @@ if "--marco" in sys.argv:
                 print(ln.rstrip("\n")); print()
     else:
         print("=== MARCO 2 de 2 · LAS TRES RELACIONES QUE MANDAN: RN-380 (mapa de entidades), RN-362 (Propietario y Asignado), RN-311 (niveles) ===\n")
+        EB = json.load(io.open(os.path.join(SP, "elementos.json"), encoding="utf-8"))["elementos"]  # el marco sale de la primera etapa: los archivos _r y _x no traen estas tres
         for i in ("RN-380", "RN-362", "RN-311"):
-            print("### %s\n%s\n" % (i, E[i]))
+            print("### %s\n%s\n" % (i, EB[i]))
     sys.exit(0)
 
 if "--estado" in sys.argv:

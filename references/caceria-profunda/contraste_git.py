@@ -20,7 +20,7 @@ def filas(texto):
     return out
 
 if len(sys.argv) < 2:
-    print("uso: python contraste_git.py <commit del BRD en la ultima lectura entera>   (el 02-10-2026: 7f3c5c4, la v5.83)"); sys.exit(1)
+    print("uso: python contraste_git.py <commit del BRD en la ultima lectura entera>   (el 03-10-2026: c7f8ef4, la v5.95)"); sys.exit(1)
 BASE = sys.argv[1]
 viejo = subprocess.run(["git", "-C", RAIZ, "show", "%s:docs/BRD.md" % BASE], capture_output=True).stdout.decode("utf-8")
 nuevo = io.open(os.path.join(RAIZ, "docs", "BRD.md"), encoding="utf-8").read()
@@ -28,7 +28,7 @@ V, N = filas(viejo), filas(nuevo)
 cambiados = sorted(i for i in N if i in V and V[i] != N[i])
 nuevos = sorted(i for i in N if i not in V)
 quitados = sorted(i for i in V if i not in N)
-print("v5.83: %d elementos; hoy: %d; cambiados %d; nuevos %d; quitados %d" % (len(V), len(N), len(cambiados), len(nuevos), len(quitados)))
+print("v5.95: %d elementos; hoy: %d; cambiados %d; nuevos %d; quitados %d" % (len(V), len(N), len(cambiados), len(nuevos), len(quitados)))
 
 L = json.load(io.open(os.path.join(SP, "lista_cambiados.json"), encoding="utf-8"))
 u19 = set(L["union"])
